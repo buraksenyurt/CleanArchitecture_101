@@ -1,0 +1,64 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{49DD79E7-DB67-49C5-B213-E65AF6201C4D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "core", "core", "{DAAF4289-E1C1-4D30-AFBF-A8F5928C20BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamersWorld.Domain", "src\core\GamersWorld.Domain\GamersWorld.Domain.csproj", "{2B02B859-C978-440C-97E2-4F7025EC4598}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamersWorld.Application", "src\core\GamersWorld.Application\GamersWorld.Application.csproj", "{3C4A3B93-245D-4280-952E-D9FA88A6E977}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{F9230B2F-2386-4210-85B2-99B223BBB3D9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamersWorld.Data", "src\infrastructure\GamersWorld.Data\GamersWorld.Data.csproj", "{C0A2E57A-8933-43C3-AB81-63E15B27BE98}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamersWorld.Shared", "src\infrastructure\GamersWorld.Shared\GamersWorld.Shared.csproj", "{9CB71FB1-529D-4893-9814-8B3814E19993}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{7CBDC23A-204E-47F9-B708-615C8922DA1D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GamersWorld.WebApi", "src\presentation\GamersWorld.WebApi\GamersWorld.WebApi.csproj", "{488ED09F-038F-4B98-80FD-16D98217B580}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2B02B859-C978-440C-97E2-4F7025EC4598}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B02B859-C978-440C-97E2-4F7025EC4598}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B02B859-C978-440C-97E2-4F7025EC4598}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B02B859-C978-440C-97E2-4F7025EC4598}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C4A3B93-245D-4280-952E-D9FA88A6E977}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C4A3B93-245D-4280-952E-D9FA88A6E977}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C4A3B93-245D-4280-952E-D9FA88A6E977}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C4A3B93-245D-4280-952E-D9FA88A6E977}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0A2E57A-8933-43C3-AB81-63E15B27BE98}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0A2E57A-8933-43C3-AB81-63E15B27BE98}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0A2E57A-8933-43C3-AB81-63E15B27BE98}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0A2E57A-8933-43C3-AB81-63E15B27BE98}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9CB71FB1-529D-4893-9814-8B3814E19993}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9CB71FB1-529D-4893-9814-8B3814E19993}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9CB71FB1-529D-4893-9814-8B3814E19993}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9CB71FB1-529D-4893-9814-8B3814E19993}.Release|Any CPU.Build.0 = Release|Any CPU
+		{488ED09F-038F-4B98-80FD-16D98217B580}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{488ED09F-038F-4B98-80FD-16D98217B580}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{488ED09F-038F-4B98-80FD-16D98217B580}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{488ED09F-038F-4B98-80FD-16D98217B580}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DAAF4289-E1C1-4D30-AFBF-A8F5928C20BC} = {49DD79E7-DB67-49C5-B213-E65AF6201C4D}
+		{2B02B859-C978-440C-97E2-4F7025EC4598} = {DAAF4289-E1C1-4D30-AFBF-A8F5928C20BC}
+		{3C4A3B93-245D-4280-952E-D9FA88A6E977} = {DAAF4289-E1C1-4D30-AFBF-A8F5928C20BC}
+		{F9230B2F-2386-4210-85B2-99B223BBB3D9} = {49DD79E7-DB67-49C5-B213-E65AF6201C4D}
+		{C0A2E57A-8933-43C3-AB81-63E15B27BE98} = {F9230B2F-2386-4210-85B2-99B223BBB3D9}
+		{9CB71FB1-529D-4893-9814-8B3814E19993} = {F9230B2F-2386-4210-85B2-99B223BBB3D9}
+		{7CBDC23A-204E-47F9-B708-615C8922DA1D} = {49DD79E7-DB67-49C5-B213-E65AF6201C4D}
+		{488ED09F-038F-4B98-80FD-16D98217B580} = {7CBDC23A-204E-47F9-B708-615C8922DA1D}
+	EndGlobalSection
+EndGlobal
