@@ -9,7 +9,7 @@ public class CreateGameCommand
     : IRequest<int>
 {
     public string Title { get; set; }
-    public Status Status { get; set; }
+    public short Status { get; set; }
     public double Point { get; set; }
     public decimal ListPrice { get; set; }
     public Guid ImageId { get; set; }
@@ -28,7 +28,7 @@ public class CreateGameCommandHandler(IApplicationDbContext context, IImageHandl
         var newGame = new Game
         {
             Title = request.Title,
-            Status = request.Status,
+            Status = (Status)request.Status,
             Point = request.Point,
             ListPrice = request.ListPrice,
             Image = image

@@ -19,13 +19,15 @@ public class GetGamesQueryHandler(IApplicationDbContext context, IMapper mapper)
     private readonly IMapper _mapper = mapper;
     public async Task<GamesViewModel> Handle(GetGamesQuery request, CancellationToken cancellationToken)
     {
+        Thread.Sleep(600); // Performance Behavior davranışı için eklendi
+        
         GamesViewModel gamesViewModel = new()
         {
-            GameList = await 
+            GameList = await
                 _context
                     .Games
                     .ProjectTo<GameDto>(_mapper.ConfigurationProvider)
-                    .OrderBy(g => g.Title)                    
+                    .OrderBy(g => g.Title)
                     .ToListAsync(cancellationToken)
         };
         return gamesViewModel;
