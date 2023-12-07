@@ -1,0 +1,212 @@
+{
+	"info": {
+		"_postman_id": "6697861e-499f-468b-8658-70d74bd1401d",
+		"name": "Clean Architecture Training",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1401662"
+	},
+	"item": [
+		{
+			"name": "Add Game",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Donkey Kong\",\n    \"point\": 6.9,\n    \"listPrice\": 19.50,\n    \"status\": 1,\n    \"imageId\": \"534b5ceb-6b9e-4659-895e-5d141cea3962\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5175/api/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Game But Validation Error",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Donkey Kong\",\n    \"point\": 11.9,\n    \"listPrice\": 19.50,\n    \"status\": 1,\n    \"imageId\": \"534b5ceb-6b9e-4659-895e-5d141cea3962\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5175/api/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Game",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"gameId\":4,\n    \"title\": \"Donkey Kong 1984\",\n    \"point\": 8.9,\n    \"listPrice\": 24.50,\n    \"status\": 3,\n    \"imageId\": \"138b5ceb-6b9e-4659-895e-5d141cea1962\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5175/api/games/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Game But Validation Error",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"gameId\":4,\n    \"title\": \"Donkey Kong 1984 This is tooooooooooo long game name I have ever seeennn!!! Realyyyy. Believe meeeeeeeee!!!\",\n    \"point\": 8.9,\n    \"listPrice\": 24.50,\n    \"status\": 3,\n    \"imageId\": \"138b5ceb-6b9e-4659-895e-5d141cea1962\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5175/api/games/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5175/api/games",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Game By Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5175/api/games/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Delete Game But NotFoundException",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5175/api/games/-1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"-1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Games with Paging",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5175/api/games/0/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"0",
+						"10"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
