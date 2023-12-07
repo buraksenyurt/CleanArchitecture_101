@@ -1,3 +1,4 @@
+using GamersWorld.Application.Common.Exceptions;
 using GamersWorld.Application.Games.Commands.CreateGame;
 using GamersWorld.Application.Games.Commands.DeleteGame;
 using GamersWorld.Application.Games.Commands.UpdateGame;
@@ -35,24 +36,46 @@ public class GamesController(IMediator mediator)
     [HttpPost]
     public async Task<ActionResult<int>> Create(CreateGameCommand command)
     {
-        return await _mediator.Send(command);
+        try
+        {
+            return await _mediator.Send(command);
+        }
+        catch (Exception excp)
+        {
+            return BadRequest(excp.Message);
+        }
     }
 
     [HttpDelete("{id}")]
     public async Task<ActionResult> Delete(int id)
     {
-        await _mediator.Send(new DeleteGameCommand { GameId = id });
-        return NoContent();
+        try
+        {
+            await _mediator.Send(new DeleteGameCommand { GameId = id });
+            return NoContent();
+
+        }
+        catch (GameNotFoundException excp)
+        {
+            return NotFound(excp.Message);
+        }
     }
 
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, UpdateGameCommand command)
     {
-        if (id != command.GameId)
-            return BadRequest();
+        try
+        {
+            if (id != command.GameId)
+                return BadRequest();
 
-        await _mediator.Send(command);
+            await _mediator.Send(command);
 
+        }
+        catch (Exception excp)
+        {
+            return BadRequest(excp.Message);
+        }
         return NoContent();
     }
 }
