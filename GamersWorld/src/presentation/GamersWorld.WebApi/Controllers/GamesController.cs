@@ -1,4 +1,6 @@
 using GamersWorld.Application.Games.Commands.CreateGame;
+using GamersWorld.Application.Games.Commands.DeleteGame;
+using GamersWorld.Application.Games.Commands.UpdateGame;
 using GamersWorld.Application.Games.Queries.GetGames;
 using GamersWorld.Application.Games.Queries.GetGamesByPaging;
 using MediatR;
@@ -11,7 +13,7 @@ namespace GamersWorld.WebApi.Controllers;
 public class GamesController(IMediator mediator)
     : ControllerBase
 {
-    private IMediator _mediator = mediator;
+    private readonly IMediator _mediator = mediator;
 
     [HttpGet]
     public async Task<ActionResult<GamesViewModel>> Get()
@@ -34,5 +36,23 @@ public class GamesController(IMediator mediator)
     public async Task<ActionResult<int>> Create(CreateGameCommand command)
     {
         return await _mediator.Send(command);
+    }
+
+    [HttpDelete("{id}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        await _mediator.Send(new DeleteGameCommand { GameId = id });
+        return NoContent();
+    }
+
+    [HttpPut("{id}")]
+    public async Task<ActionResult> Update(int id, UpdateGameCommand command)
+    {
+        if (id != command.GameId)
+            return BadRequest();
+
+        await _mediator.Send(command);
+
+        return NoContent();
     }
 }
