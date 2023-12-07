@@ -1,7 +1,7 @@
 using GamersWorld.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
-namespace GamersWorld.Application.Interfaces;
+namespace GamersWorld.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {

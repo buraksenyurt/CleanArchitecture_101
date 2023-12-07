@@ -1,6 +1,6 @@
 using GamersWorld.Application.Games.Queries.ExportGames;
 
-namespace GamersWorld.Application.Interfaces;
+namespace GamersWorld.Application.Common.Interfaces;
 
 public interface ICsvBuilder
 {
