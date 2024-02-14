@@ -6,12 +6,8 @@ namespace GamersWorld.Application.Games.Commands.CreateGame;
 public class CreateGameCommandValidator
     : AbstractValidator<CreateGameCommand>
 {
-    private readonly IApplicationDbContext _context;
-
     public CreateGameCommandValidator(IApplicationDbContext context)
     {
-        _context = context;
-
         RuleFor(v => v.Title)
             .NotEmpty()
             .WithMessage("Title info required")

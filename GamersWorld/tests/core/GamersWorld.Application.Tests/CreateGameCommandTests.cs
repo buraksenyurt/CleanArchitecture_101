@@ -1,13 +1,90 @@
+using FluentValidation.TestHelper;
 using GamersWorld.Application.Common.Interfaces;
 using GamersWorld.Application.Dtos.Games;
 using GamersWorld.Application.Games.Commands.CreateGame;
 using GamersWorld.Domain.Entities;
+using GamersWorld.Domain.Enums;
 using Moq;
 
 namespace Application.Tests;
 
 public class CreateGameCommandTests
 {
+    private readonly CreateGameCommandValidator _validator;
+    public CreateGameCommandTests()
+    {
+        _validator = new CreateGameCommandValidator(null);
+    }
+
+    [Fact]
+    public void Should_Require_Title()
+    {
+        var command = new CreateGameCommand
+        {
+            Title = string.Empty,
+            Point = 5.0,
+            ListPrice = 34.50M,
+            ImageId = Guid.NewGuid(),
+            Status = (short)Status.PreSale
+        };
+
+        var result = _validator.TestValidate(command);
+        result.ShouldHaveValidationErrorFor(c => c.Title)
+              .WithErrorMessage("Title info required");
+    }
+
+    [Fact]
+    public void Should_Fail_When_Title_Is_Too_Long()
+    {
+        var command = new CreateGameCommand
+        {
+            Title = "There is a really huge game name out of range. Please refactor it!",
+            Point = 5.0,
+            ListPrice = 34.50M,
+            ImageId = Guid.NewGuid(),
+            Status = (short)Status.PreSale
+        };
+
+        var result = _validator.TestValidate(command);
+        result.ShouldHaveValidationErrorFor(c => c.Title)
+              .WithErrorMessage("Invalid title. Too long!");
+    }
+
+    [Theory]
+    [InlineData(-1.0)]
+    [InlineData(10.1)]
+    public void Should_Fail_When_Point_Is_Out_Of_Range(double point)
+    {
+        var command = new CreateGameCommand
+        {
+            Title = "Commandos II",
+            Point = point,
+            ListPrice = 34.50M,
+            ImageId = Guid.NewGuid(),
+            Status = (short)Status.PreSale
+        };
+
+        var result = _validator.TestValidate(command);
+        result.ShouldHaveValidationErrorFor(c => c.Point)
+              .WithErrorMessage("Invalid range!");
+    }
+
+    [Fact]
+    public void Should_Pass_With_Valid_Command()
+    {
+        var command = new CreateGameCommand
+        {
+            Title = "Commandos",
+            Point = 5.0,
+            ListPrice = 34.50M,
+            ImageId = Guid.NewGuid(),
+            Status = (short)Status.PreSale
+        };
+
+        var result = _validator.TestValidate(command);
+        result.ShouldNotHaveAnyValidationErrors();
+    }
+
     [Fact]
     public async Task Handle_ValidRequest_ShouldCreateGameAndReturnGameId()
     {
@@ -39,6 +116,5 @@ public class CreateGameCommandTests
 
         // Assert
         Assert.Equal(expectedGameId, result);
-
     }
 }
