@@ -10,12 +10,12 @@ public class ExportGamesQuery
     : IRequest<ExportGamesViewModel>
 {
 }
-public class ExportGamesQueryHandler(IApplicationDbContext context, IMapper mapper, ICsvBuilder csvBuilder)
+public class ExportGamesQueryHandler(IApplicationDbContext context, IMapper mapper, IExportBuilder csvBuilder)
         : IRequestHandler<ExportGamesQuery, ExportGamesViewModel>
 {
     private readonly IApplicationDbContext _context = context;
     private readonly IMapper _mapper = mapper;
-    private readonly ICsvBuilder _csvBuilder = csvBuilder;
+    private readonly IExportBuilder _csvBuilder = csvBuilder;
 
     public async Task<ExportGamesViewModel> Handle(ExportGamesQuery request, CancellationToken cancellationToken)
     {

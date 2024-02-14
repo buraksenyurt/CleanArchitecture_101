@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddShared(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddTransient<IEmailService, EMailService>();
-        services.AddTransient<ICsvBuilder, CsvBuilder>();
+        services.AddTransient<IExportBuilder, CsvExportBuilder>();
         services.AddTransient<IImageHandler, ImageHandler>();
         services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
 

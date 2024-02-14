@@ -2,6 +2,7 @@ using GamersWorld.Application.Common.Exceptions;
 using GamersWorld.Application.Games.Commands.CreateGame;
 using GamersWorld.Application.Games.Commands.DeleteGame;
 using GamersWorld.Application.Games.Commands.UpdateGame;
+using GamersWorld.Application.Games.Queries.ExportGames;
 using GamersWorld.Application.Games.Queries.GetGames;
 using GamersWorld.Application.Games.Queries.GetGamesByPaging;
 using MediatR;
@@ -77,5 +78,11 @@ public class GamesController(IMediator mediator)
             return BadRequest(excp.Message);
         }
         return NoContent();
+    }
+
+    [HttpGet("/export/csv")]
+    public async Task<ActionResult<ExportGamesViewModel>> Export()
+    {
+        return await _mediator.Send(new ExportGamesQuery());
     }
 }

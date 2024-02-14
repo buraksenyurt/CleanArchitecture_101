@@ -5,8 +5,8 @@ using GamersWorld.Application.Games.Queries.ExportGames;
 
 namespace GamersWorld.Shared.Services;
 
-public class CsvBuilder
-    : ICsvBuilder
+public class CsvExportBuilder
+    : IExportBuilder
 {
     public byte[] BuildFile(IEnumerable<GameRecord> games)
     {
