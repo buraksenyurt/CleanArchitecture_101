@@ -8,10 +8,16 @@ public class ImageHandler
 {
     public async Task<Thumbnail> LoadWithGuidAsync(Guid guid)
     {
+        var imagePath = Path.Combine("wwwroot", "assets", $"{guid}.png");
+        if (!File.Exists(imagePath))
+        {
+            imagePath = Path.Combine("wwwroot", "assets", "DefaultThumbnail.png");
+        }
+        var content = await File.ReadAllBytesAsync(imagePath);
         return new Thumbnail
         {
             Id = Guid.NewGuid(),
-            Content = new byte[1024]
+            Content = content
         };
     }
 }
