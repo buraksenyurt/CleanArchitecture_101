@@ -25,14 +25,14 @@ public class DeleteGameCommandHandler
               .Where(l => l.Id == request.GameId)
               .SingleOrDefaultAsync(cancellationToken);
 
-        if (game == null)
+        if (game != null)
         {
-            throw new GameNotFoundException(request.GameId);
+            _context.RemoveGame(game);
+            await _context.SaveChangesAsync(cancellationToken);
+
+            return;
         }
 
-        _context.Games.Remove(game);
-        await _context.SaveChangesAsync(cancellationToken);
-
-        return;
+        throw new GameNotFoundException(request.GameId);
     }
 }

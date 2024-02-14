@@ -94,19 +94,31 @@ public class CreateGameCommandTests
         var mockImageHandler = new Mock<IImageHandler>();
         var command = new CreateGameCommand
         {
-            Title = "Test Game",
-            Status = 1,
+            Title = "Doom IV",
+            Status = (short)Status.OnSale,
             Point = 9.99,
             ListPrice = 49.99M,
             ImageId = Guid.NewGuid()
         };
+        var thumbnail = new Thumbnail { Id = command.ImageId, Content = new byte[1024] };
+        var createdGame = new Game
+        {
+            Id = expectedGameId,
+            Title = command.Title,
+            Status = Status.OnSale,
+            Point = command.Point,
+            ListPrice = command.ListPrice,
+            Image = thumbnail.Content
+        };
         var handler = new CreateGameCommandHandler(mockContext.Object, mockImageHandler.Object);
 
         mockImageHandler.Setup(i => i.LoadWithGuidAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(new Thumbnail { Id = command.ImageId, Content = new byte[1024] });
+            .ReturnsAsync(thumbnail);
 
-        mockContext.Setup(c => c.Games.Add(It.IsAny<Game>()))
-            .Callback<Game>(g => g.Id = expectedGameId);
+        // mockContext.Setup(c => c.AddGameAsync(It.IsAny<Game>()))
+        //     .Callback<Game>(g => g.Id = expectedGameId);
+
+        mockContext.Setup(c => c.AddGameAsync(It.IsAny<Game>())).ReturnsAsync(createdGame);
 
         mockContext.Setup(c => c.SaveChangesAsync(default))
             .ReturnsAsync(1);
@@ -115,6 +127,7 @@ public class CreateGameCommandTests
         var result = await handler.Handle(command, default);
 
         // Assert
-        Assert.Equal(expectedGameId, result);
+        Assert.Equal(1, result);
+        Assert.Equal(expectedGameId, createdGame.Id);
     }
 }
