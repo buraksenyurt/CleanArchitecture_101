@@ -27,7 +27,7 @@ public class DeleteGameCommandHandler
 
         if (game != null)
         {
-            _context.RemoveGame(game);
+            _context.Games.Remove(game);
             await _context.SaveChangesAsync(cancellationToken);
 
             return;

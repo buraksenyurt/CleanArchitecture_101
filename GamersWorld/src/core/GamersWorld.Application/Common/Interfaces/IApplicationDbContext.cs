@@ -1,12 +1,10 @@
 using GamersWorld.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace GamersWorld.Application.Common.Interfaces;
 
 public interface IApplicationDbContext
 {
-    IQueryable<Game> Games { get; }
-    Task<Game> FindGameAsync(int id, CancellationToken cancellationToken);
+    DbSet<Game> Games { get; set; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken);
-    Task<Game> AddGameAsync(Game game);
-    void RemoveGame(Game game);
 }

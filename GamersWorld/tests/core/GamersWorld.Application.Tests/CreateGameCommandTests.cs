@@ -88,37 +88,25 @@ public class CreateGameCommandTests
     [Fact]
     public async Task Handle_ValidRequest_ShouldCreateGameAndReturnGameId()
     {
-        // Arrange
+       // Arrange
         var expectedGameId = 123;
         var mockContext = new Mock<IApplicationDbContext>();
         var mockImageHandler = new Mock<IImageHandler>();
         var command = new CreateGameCommand
         {
             Title = "Doom IV",
-            Status = (short)Status.OnSale,
+            Status = 1,
             Point = 9.99,
             ListPrice = 49.99M,
             ImageId = Guid.NewGuid()
         };
-        var thumbnail = new Thumbnail { Id = command.ImageId, Content = new byte[1024] };
-        var createdGame = new Game
-        {
-            Id = expectedGameId,
-            Title = command.Title,
-            Status = Status.OnSale,
-            Point = command.Point,
-            ListPrice = command.ListPrice,
-            Image = thumbnail.Content
-        };
         var handler = new CreateGameCommandHandler(mockContext.Object, mockImageHandler.Object);
 
         mockImageHandler.Setup(i => i.LoadWithGuidAsync(It.IsAny<Guid>()))
-            .ReturnsAsync(thumbnail);
+            .ReturnsAsync(new Thumbnail { Id = command.ImageId, Content = new byte[1024] });
 
-        // mockContext.Setup(c => c.AddGameAsync(It.IsAny<Game>()))
-        //     .Callback<Game>(g => g.Id = expectedGameId);
-
-        mockContext.Setup(c => c.AddGameAsync(It.IsAny<Game>())).ReturnsAsync(createdGame);
+        mockContext.Setup(c => c.Games.Add(It.IsAny<Game>()))
+            .Callback<Game>(g => g.Id = expectedGameId);
 
         mockContext.Setup(c => c.SaveChangesAsync(default))
             .ReturnsAsync(1);
@@ -127,7 +115,6 @@ public class CreateGameCommandTests
         var result = await handler.Handle(command, default);
 
         // Assert
-        Assert.Equal(1, result);
-        Assert.Equal(expectedGameId, createdGame.Id);
+        Assert.Equal(expectedGameId, result);
     }
 }

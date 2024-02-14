@@ -26,8 +26,7 @@ public class UpdateGameCommandHandler(IApplicationDbContext context, IImageHandl
     {
         var image = await _imageHandler.LoadWithGuidAsync(request.ImageId);
 
-        var gm = await _context
-            .FindGameAsync(request.GameId, cancellationToken) ?? throw new GameNotFoundException(request.GameId);
+        var gm = await _context.Games.FindAsync(request.GameId, cancellationToken) ?? throw new GameNotFoundException(request.GameId);
 
         gm.Title = request.Title;
         gm.Status = (Status)request.Status;

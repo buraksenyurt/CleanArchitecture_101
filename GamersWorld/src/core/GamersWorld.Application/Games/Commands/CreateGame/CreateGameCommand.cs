@@ -33,11 +33,10 @@ public class CreateGameCommandHandler(IApplicationDbContext context, IImageHandl
             ListPrice = request.ListPrice,
             Image = image.Content
         };
-        
-        var addedGame=_context.AddGameAsync(newGame);
+
+        _context.Games.Add(newGame);
 
         await _context.SaveChangesAsync(cancellationToken);
-
-        return addedGame.Id;
+        return newGame.Id;
     }
 }
