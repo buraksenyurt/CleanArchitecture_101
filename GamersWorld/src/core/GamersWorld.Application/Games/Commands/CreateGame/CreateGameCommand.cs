@@ -23,7 +23,7 @@ public class CreateGameCommandHandler(IApplicationDbContext context, IImageHandl
 
     public async Task<int> Handle(CreateGameCommand request, CancellationToken cancellationToken)
     {
-        var image = _imageHandler.LoadWithGuidAsync(request.ImageId);
+        var image = await _imageHandler.LoadWithGuidAsync(request.ImageId);
 
         var newGame = new Game
         {
@@ -31,7 +31,7 @@ public class CreateGameCommandHandler(IApplicationDbContext context, IImageHandl
             Status = (Status)request.Status,
             Point = request.Point,
             ListPrice = request.ListPrice,
-            Image = image
+            Image = image.Content
         };
         _context.Games.Add(newGame);
 

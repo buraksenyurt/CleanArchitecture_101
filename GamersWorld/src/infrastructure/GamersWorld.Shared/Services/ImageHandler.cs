@@ -1,12 +1,17 @@
 using GamersWorld.Application.Common.Interfaces;
+using GamersWorld.Application.Dtos.Games;
 
 namespace GamersWorld.Shared.Services;
 
 public class ImageHandler
     : IImageHandler
 {
-    public byte[] LoadWithGuidAsync(Guid guid)
+    public async Task<Thumbnail> LoadWithGuidAsync(Guid guid)
     {
-        return null;
+        return new Thumbnail
+        {
+            Id = Guid.NewGuid(),
+            Content = new byte[1024]
+        };
     }
 }

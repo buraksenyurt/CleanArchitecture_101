@@ -24,7 +24,7 @@ public class UpdateGameCommandHandler(IApplicationDbContext context, IImageHandl
 
     public async Task<int> Handle(UpdateGameCommand request, CancellationToken cancellationToken)
     {
-        var image = _imageHandler.LoadWithGuidAsync(request.ImageId);
+        var image = await _imageHandler.LoadWithGuidAsync(request.ImageId);
 
         var gm = await _context.Games.FindAsync(request.GameId) ?? throw new GameNotFoundException(request.GameId);
 
@@ -32,7 +32,7 @@ public class UpdateGameCommandHandler(IApplicationDbContext context, IImageHandl
         gm.Status = (Status)request.Status;
         gm.Point = request.Point;
         gm.ListPrice = request.ListPrice;
-        gm.Image = image;
+        gm.Image = image.Content;
 
         await _context.SaveChangesAsync(cancellationToken);
 
