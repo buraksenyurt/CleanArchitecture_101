@@ -6,6 +6,12 @@ namespace GamersWorld.Shared.Services;
 public class ImageHandler
     : IImageHandler
 {
+    private readonly IFileWrapper _fileWrapper;
+
+    public ImageHandler(IFileWrapper fileWrapper)
+    {
+        _fileWrapper = fileWrapper;
+    }
     public async Task<Thumbnail> LoadWithGuidAsync(Guid guid)
     {
         var imagePath = Path.Combine("wwwroot", "assets", $"{guid}.png");
@@ -13,7 +19,7 @@ public class ImageHandler
         {
             imagePath = Path.Combine("wwwroot", "assets", "DefaultThumbnail.png");
         }
-        var content = await File.ReadAllBytesAsync(imagePath);
+        var content = await _fileWrapper.ReadAllBytesAsync(imagePath);
         return new Thumbnail
         {
             Id = Guid.NewGuid(),
