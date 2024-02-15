@@ -26,16 +26,20 @@ public class UpdateGameCommandHandler(IApplicationDbContext context, IImageHandl
     {
         var image = await _imageHandler.LoadWithGuidAsync(request.ImageId);
 
-        var gm = await _context.Games.FindAsync(request.GameId, cancellationToken) ?? throw new GameNotFoundException(request.GameId);
+        var gm = await _context.Games.FindAsync(request.GameId, cancellationToken);
+        if (gm != null)
+        {
+            gm.Title = request.Title;
+            gm.Status = (Status)request.Status;
+            gm.Point = request.Point;
+            gm.ListPrice = request.ListPrice;
+            gm.Image = image.Content;
 
-        gm.Title = request.Title;
-        gm.Status = (Status)request.Status;
-        gm.Point = request.Point;
-        gm.ListPrice = request.ListPrice;
-        gm.Image = image.Content;
+            await _context.SaveChangesAsync(cancellationToken);
 
-        await _context.SaveChangesAsync(cancellationToken);
+            return request.GameId;
+        }
 
-        return request.GameId;
+        throw new GameNotFoundException(request.GameId);
     }
 }
