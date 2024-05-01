@@ -28,7 +28,7 @@ public class GetGamesByPagingQueryHandler(IApplicationDbContext context, IMapper
             GameList = await
                 _context
                     .Games
-                    .Where(g => g.IsArchived)
+                    .Where(g => !g.IsArchived)
                     .ProjectTo<GameDto>(_mapper.ConfigurationProvider)
                     .Skip(request.PageNo)
                     .Take(request.Count)

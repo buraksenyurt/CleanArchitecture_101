@@ -2,5 +2,5 @@ namespace GamersWorld.Application.Common.Interfaces;
 
 public interface IArchiveService
 {
-    Task MoveAsync(int keyId);
+    Task<int> MoveAsync(int keyId);
 }

@@ -1,7 +1,8 @@
 using GamersWorld.Application.Common.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Dapper;
-using Microsoft.Data.SqlClient;
+using System.Data;
+using Microsoft.Data.Sqlite;
 
 namespace GamersWorld.Data.Contexts;
 
@@ -14,13 +15,12 @@ public class ArchiveDataService
     {
         _connStr = configuration.GetConnectionString("DevConStr");
     }
-    public async Task MoveAsync(int keyId)
+    public async Task<int> MoveAsync(int keyId)
     {
-        using (var conn = new SqlConnection(_connStr))
-        {
-            string sql = "UPDATE Games SET IsArchived = 1 WHERE Id = @GameId";
-            var parameters = new { GameId = keyId };
-            await conn.ExecuteAsync(sql, parameters);
-        }
+        using IDbConnection conn = new SqliteConnection(_connStr);
+        string sql = "UPDATE Games SET IsArchived = 1 WHERE Id = @GameId";
+        var parameters = new { GameId = keyId };
+        var updated = await conn.ExecuteAsync(sql, parameters);
+        return updated;
     }
 }

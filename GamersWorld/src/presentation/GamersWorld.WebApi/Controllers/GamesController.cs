@@ -1,6 +1,7 @@
 using GamersWorld.Application.Common.Exceptions;
 using GamersWorld.Application.Games.Commands.CreateGame;
 using GamersWorld.Application.Games.Commands.DeleteGame;
+using GamersWorld.Application.Games.Commands.MoveToArchiveGame;
 using GamersWorld.Application.Games.Commands.UpdateGame;
 using GamersWorld.Application.Games.Queries.ExportGames;
 using GamersWorld.Application.Games.Queries.GetGames;
@@ -12,10 +13,11 @@ namespace GamersWorld.WebApi.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class GamesController(IMediator mediator)
+public class GamesController(IMediator mediator, ILogger<GamesController> logger)
     : ControllerBase
 {
     private readonly IMediator _mediator = mediator;
+    private readonly ILogger<GamesController> _logger = logger;
 
     [HttpGet]
     public async Task<ActionResult<GamesViewModel>> Get()
@@ -64,6 +66,25 @@ public class GamesController(IMediator mediator)
 
     [HttpPut("{id}")]
     public async Task<ActionResult> Update(int id, UpdateGameCommand command)
+    {
+        try
+        {
+            _logger.LogInformation($"{id} is moving to archive");
+            if (id != command.GameId)
+                return BadRequest();
+
+            await _mediator.Send(command);
+
+        }
+        catch (Exception excp)
+        {
+            return BadRequest(excp.Message);
+        }
+        return NoContent();
+    }
+
+    [HttpPut("archive/{id}")]
+    public async Task<ActionResult> MoveToArchive(int id, MoveToArchiveGameCommand command)
     {
         try
         {
