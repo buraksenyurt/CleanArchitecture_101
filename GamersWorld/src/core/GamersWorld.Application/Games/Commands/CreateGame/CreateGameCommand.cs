@@ -31,7 +31,8 @@ public class CreateGameCommandHandler(IApplicationDbContext context, IImageHandl
             Status = (Status)request.Status,
             Point = request.Point,
             ListPrice = request.ListPrice,
-            Image = image.Content
+            Image = image.Content,
+            IsArchived = false
         };
 
         _context.Games.Add(newGame);

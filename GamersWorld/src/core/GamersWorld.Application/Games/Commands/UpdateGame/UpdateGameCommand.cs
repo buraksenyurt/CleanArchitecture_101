@@ -13,6 +13,7 @@ public class UpdateGameCommand
     public short Status { get; set; }
     public double Point { get; set; }
     public decimal ListPrice { get; set; }
+    public bool IsArchived { get; set; }
     public Guid ImageId { get; set; }
 }
 
@@ -34,6 +35,7 @@ public class UpdateGameCommandHandler(IApplicationDbContext context, IImageHandl
             gm.Point = request.Point;
             gm.ListPrice = request.ListPrice;
             gm.Image = image.Content;
+            gm.IsArchived = request.IsArchived;
 
             await _context.SaveChangesAsync(cancellationToken);
 

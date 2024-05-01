@@ -21,7 +21,11 @@ public class ExportGamesQueryHandler(IApplicationDbContext context, IMapper mapp
     {
         var result = new ExportGamesViewModel();
 
-        var games = await _context.Games.ProjectTo<GameRecord>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+        var games = await _context
+                    .Games
+                    .Where(g => !g.IsArchived)
+                    .ProjectTo<GameRecord>(_mapper.ConfigurationProvider)
+                    .ToListAsync(cancellationToken);
         result.FileName = "Games.csv";
         result.ContentType = "text/csv";
         result.Content = _csvBuilder.BuildFile(games);

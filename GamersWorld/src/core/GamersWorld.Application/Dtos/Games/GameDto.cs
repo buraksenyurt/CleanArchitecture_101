@@ -12,6 +12,7 @@ public class GameDto
     public double Point { get; set; }
     public decimal ListPrice { get; set; }
     public short Status { get; set; }
+    public bool IsArchived { get; set; }
     public void Mapping(Profile profile)
     {
         profile

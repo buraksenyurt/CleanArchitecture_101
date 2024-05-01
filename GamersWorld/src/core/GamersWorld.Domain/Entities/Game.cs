@@ -10,4 +10,5 @@ public class Game
     public decimal ListPrice { get; set; }
     public Status Status { get; set; }
     public byte[] Image { get; set; }
+    public bool IsArchived { get; set; }
 }
