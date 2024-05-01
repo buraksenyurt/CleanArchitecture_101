@@ -53,3 +53,7 @@ root
 ## Nasıl Çalışmalı?
 
 Repodaki base branch'ten yeni bir branch çıkılıp geliştirmeler bunun üzerinde yapılabilir. base branch'te solution'ın genel iskeleti kuruludur ve ihtiyaç duyulacak pek çok sınıf dosyası içi boş olacak şekilde hazıdır. Eğitim sırasında bu içerik hazırlanarak ilerlenir. Yapılması gereken değişiklikler için main branch'te yer alan kodun son haline bakılabilir.
+
+Swagger dokümantasyonu için localhost:5175/swagger/index.html adresine gidilebilir.
+
+![Swagger Runtime](swagger_runtime.png)

@@ -71,7 +71,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"gameId\":4,\n    \"title\": \"Donkey Kong 1984\",\n    \"point\": 8.9,\n    \"listPrice\": 24.50,\n    \"status\": 3,\n    \"imageId\": \"138b5ceb-6b9e-4659-895e-5d141cea1962\"\n}",
+					"raw": "{\n    \"gameId\": 4,\n    \"title\": \"Donkey Kong 1984\",\n    \"point\": 8.9,\n    \"listPrice\": 24.50,\n    \"status\": 3,\n    \"isArchived\": false,\n    \"imageId\": \"138b5ceb-6b9e-4659-895e-5d141cea1962\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -88,6 +88,37 @@
 					"path": [
 						"api",
 						"games",
+						"4"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Move To Archive Command",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"gameId\": 4\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5175/api/games/archive/4",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"archive",
 						"4"
 					]
 				}
