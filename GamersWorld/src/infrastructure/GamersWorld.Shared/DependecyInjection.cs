@@ -13,6 +13,7 @@ public static class DependencyInjection
         services.AddTransient<IEmailService, EMailService>();
         services.AddTransient<IExportBuilder, CsvExportBuilder>();
         services.AddTransient<IImageHandler, ImageHandler>();
+        services.AddTransient<IFileWrapper, FileWrapper>();
         services.Configure<MailSettings>(configuration.GetSection("MailSettings"));
 
         return services;
