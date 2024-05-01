@@ -10,18 +10,21 @@ using GamersWorld.WebApi.Controllers;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
+using Microsoft.Extensions.Logging;
 
 namespace WebApi.Tests;
 
 public class GamesControllerTests
 {
     private readonly Mock<IMediator> _mockMediator;
+    private readonly Mock<ILogger<GamesController>> _mockLogger;
     private readonly GamesController _controller;
 
     public GamesControllerTests()
     {
         _mockMediator = new Mock<IMediator>();
-        _controller = new GamesController(_mockMediator.Object);
+        _mockLogger = new Mock<ILogger<GamesController>>();
+        _controller = new GamesController(_mockMediator.Object, _mockLogger.Object);
     }
 
     [Fact]
