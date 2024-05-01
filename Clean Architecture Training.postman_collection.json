@@ -176,6 +176,27 @@
 			"response": []
 		},
 		{
+			"name": "Get Archived Games",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5175/api/games/archive",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5175",
+					"path": [
+						"api",
+						"games",
+						"archive"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "Delete Game By Id",
 			"request": {
 				"method": "DELETE",

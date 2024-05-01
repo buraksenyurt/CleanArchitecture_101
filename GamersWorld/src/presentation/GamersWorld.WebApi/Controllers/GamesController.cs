@@ -4,6 +4,7 @@ using GamersWorld.Application.Games.Commands.DeleteGame;
 using GamersWorld.Application.Games.Commands.MoveToArchiveGame;
 using GamersWorld.Application.Games.Commands.UpdateGame;
 using GamersWorld.Application.Games.Queries.ExportGames;
+using GamersWorld.Application.Games.Queries.GetArchivedGames;
 using GamersWorld.Application.Games.Queries.GetGames;
 using GamersWorld.Application.Games.Queries.GetGamesByPaging;
 using MediatR;
@@ -105,5 +106,12 @@ public class GamesController(IMediator mediator, ILogger<GamesController> logger
     public async Task<ActionResult<ExportGamesViewModel>> Export()
     {
         return await _mediator.Send(new ExportGamesQuery());
+    }
+
+    [HttpGet("archive")]
+    public async Task<ActionResult<ArchivedGamesViewModel>> GetArchivedGames()
+    {
+        GetArchivedGamesQuery query = new();
+        return await _mediator.Send(query);
     }
 }
