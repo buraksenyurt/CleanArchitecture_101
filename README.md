@@ -2,6 +2,12 @@
 
 Uygulamalı clean architecture eğitimi için hazırlanmış baz repodur.
 
+- [Clean Architecture 101](#clean-architecture-101)
+  - [Ön Hazırlıklar](#ön-hazırlıklar)
+  - [Çalışma Zamanı](#çalışma-zamanı)
+  - [Gelen Çözüm İskeleti](#gelen-çözüm-i̇skeleti)
+  - [Nasıl Çalışmalı?](#nasıl-çalışmalı)
+
 ## Ön Hazırlıklar
 
 Örnekte şu an için sqlite tabanlı fiziki bir veritabanı dosyası kullanılmakta. Migration işlemleri için web api uygulaması ayaktayken Data projesi altında aşağıdaki komutları çalıştırmak yeterli.
