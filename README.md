@@ -5,7 +5,7 @@ Uygulamalı clean architecture eğitimi için hazırlanmış baz repodur.
 - [Clean Architecture 101](#clean-architecture-101)
   - [Ön Hazırlıklar](#ön-hazırlıklar)
   - [Çalışma Zamanı](#çalışma-zamanı)
-  - [Gelen Çözüm İskeleti](#gelen-çözüm-i̇skeleti)
+  - [Genel Çözüm İskeleti](#genel-çözüm-i̇skeleti)
   - [Nasıl Çalışmalı?](#nasıl-çalışmalı)
 
 ## Ön Hazırlıklar
@@ -30,7 +30,7 @@ dotnet run
 
 Postman için örnek komutları [şuradaki dosyadan](Clean%20Architecture%20Training.postman_collection.json) alabilirsiniz.
 
-## Gelen Çözüm İskeleti
+## Genel Çözüm İskeleti
 
 Bu mimarinin uygulanmasında aşağıdakine benzer bir solution yapısı kullanılabilir.
 
