@@ -1,0 +1,81 @@
+@page "{id:int}"
+@model GamersWorld.RazorApp.Pages.Games.EditModel
+@{
+    ViewData["Title"] = "Edit Game";
+}
+
+<h1>Edit Game</h1>
+<hr />
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+<div class="row">
+    <div class="col-md-6">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+
+            <input asp-for="GameRequest.GameId" type="hidden" />
+
+            <div class="mb-3">
+                <label asp-for="GameRequest.Title" class="form-label"></label>
+                <input asp-for="GameRequest.Title" class="form-control" maxlength="50" />
+                <span asp-validation-for="GameRequest.Title" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GameRequest.Status" class="form-label"></label>
+                <select asp-for="GameRequest.Status" class="form-select">
+                    <option value="0">On Sale</option>
+                    <option value="1">Out of Sale</option>
+                    <option value="2">Pre-Sale</option>
+                </select>
+                <span asp-validation-for="GameRequest.Status" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GameRequest.Point" class="form-label"></label>
+                <input asp-for="GameRequest.Point" type="number" class="form-control"
+                       min="0" max="10" step="0.1" />
+                <span asp-validation-for="GameRequest.Point" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GameRequest.ListPrice" class="form-label"></label>
+                <div class="input-group">
+                    <span class="input-group-text">$</span>
+                    <input asp-for="GameRequest.ListPrice" type="number" class="form-control"
+                           min="0.01" step="0.01" />
+                </div>
+                <span asp-validation-for="GameRequest.ListPrice" class="text-danger small"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GameRequest.IsArchived" class="form-label"></label>
+                <div class="form-check form-switch">
+                    <input asp-for="GameRequest.IsArchived" class="form-check-input" role="switch" />
+                    <label asp-for="GameRequest.IsArchived" class="form-check-label">Archived</label>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GameRequest.ImageId" class="form-label"></label>
+                <input asp-for="GameRequest.ImageId" class="form-control font-monospace"
+                       placeholder="xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx" />
+                <div class="form-text">Enter the GUID of the replacement image (leave as empty GUID to keep current).</div>
+                <span asp-validation-for="GameRequest.ImageId" class="text-danger small"></span>
+            </div>
+
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-page="./Index" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

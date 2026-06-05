@@ -1,0 +1,50 @@
+@page
+@model GamersWorld.RazorApp.Pages.Games.ArchiveModel
+@{
+    ViewData["Title"] = "Archived Games";
+    string StatusLabel(short s) => s switch { 0 => "On Sale", 1 => "Out of Sale", 2 => "Pre-Sale", _ => "Unknown" };
+    string StatusBadge(short s) => s == 0 ? "bg-success" : s == 1 ? "bg-danger" : "bg-warning text-dark";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Archived Games</h1>
+    <a asp-page="./Index" class="btn btn-outline-primary">← Back to Games</a>
+</div>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (!Model.ArchivedGames.Any())
+{
+    <div class="alert alert-info">No archived games found.</div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead class="table-secondary">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Point</th>
+                <th>List Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.ArchivedGames)
+            {
+                <tr>
+                    <td>@game.Id</td>
+                    <td>@game.Title</td>
+                    <td>
+                        <span class="badge @StatusBadge(game.Status)">@StatusLabel(game.Status)</span>
+                    </td>
+                    <td>@game.Point.ToString("F1")</td>
+                    <td>@game.ListPrice.ToString("C")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

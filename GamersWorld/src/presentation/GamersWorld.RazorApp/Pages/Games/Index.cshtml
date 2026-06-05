@@ -1,0 +1,64 @@
+@page
+@model GamersWorld.RazorApp.Pages.Games.IndexModel
+@using GamersWorld.Domain.Enums
+@{
+    ViewData["Title"] = "Games";
+    string StatusLabel(short s) => s switch { 0 => "On Sale", 1 => "Out of Sale", 2 => "Pre-Sale", _ => "Unknown" };
+    string StatusBadge(short s) => s == 0 ? "bg-success" : s == 1 ? "bg-danger" : "bg-warning text-dark";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <h1>Games</h1>
+    <div>
+        <a asp-page="./Create" class="btn btn-primary">+ Add Game</a>
+        <a asp-page="./Archive" class="btn btn-outline-secondary ms-2">Archived Games</a>
+    </div>
+</div>
+
+@if (Model.ErrorMessage is not null)
+{
+    <div class="alert alert-danger">@Model.ErrorMessage</div>
+}
+
+@if (!Model.Games.Any())
+{
+    <div class="alert alert-info">No games found.</div>
+}
+else
+{
+    <table class="table table-striped table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Point</th>
+                <th>List Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Model.Games)
+            {
+                <tr>
+                    <td>@game.Id</td>
+                    <td>@game.Title</td>
+                    <td>
+                        <span class="badge @StatusBadge(game.Status)">@StatusLabel(game.Status)</span>
+                    </td>
+                    <td>@game.Point.ToString("F1")</td>
+                    <td>@game.ListPrice.ToString("C")</td>
+                    <td>
+                        <a asp-page="./Edit" asp-route-id="@game.Id" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <a asp-page="./Delete" asp-route-id="@game.Id" class="btn btn-sm btn-outline-danger ms-1">Delete</a>
+                        <form asp-page="./Archive" asp-page-handler="Move" method="post" class="d-inline ms-1"
+                              onsubmit="return confirm('Move this game to archive?')">
+                            <input type="hidden" name="id" value="@game.Id" />
+                            <button type="submit" class="btn btn-sm btn-outline-secondary">Archive</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
