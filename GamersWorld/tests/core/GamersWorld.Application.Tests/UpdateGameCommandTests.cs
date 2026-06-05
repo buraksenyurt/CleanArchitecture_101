@@ -83,7 +83,7 @@ public class UpdateGameCommandTests
         ];
         var gameId = 999;
         mockContext.Setup(m => m.Games).ReturnsDbSet(games);
-        mockContext.Setup(m => m.Games.FindAsync(999, default)).ReturnsAsync((Game)null);
+        mockContext.Setup(m => m.Games.FindAsync(999, default)).ReturnsAsync((Game?)null);
 
         var handler = new UpdateGameCommandHandler(mockContext.Object, new Mock<IImageHandler>().Object);
         var command = new UpdateGameCommand { GameId = gameId };

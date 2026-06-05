@@ -7,6 +7,7 @@ using GamersWorld.Application.Games.Queries.GetGames;
 using GamersWorld.Domain.Entities;
 using GamersWorld.Domain.Enums;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging.Abstractions;
 using MockQueryable.Moq;
 using Moq;
 
@@ -65,11 +66,10 @@ public class ExportGamesQueryTests
                     Image=new byte[1024]
                 }
         };
-        var gamesQueryable = gameRecords.AsQueryable();
-        var mockDbSet = games.AsQueryable().BuildMockDbSet();
+        var mockDbSet = games.BuildMockDbSet();
         _mockContext.Setup(c => c.Games).Returns(mockDbSet.Object);
         _mockMapper.Setup(m => m.ConfigurationProvider)
-            .Returns(() => new MapperConfiguration(cfg => { cfg.CreateMap<Game, GameRecord>(); }));
+            .Returns(() => new MapperConfiguration(cfg => { cfg.CreateMap<Game, GameRecord>(); }, NullLoggerFactory.Instance));
         _mockCsvBuilder.Setup(b => b.BuildFile(It.IsAny<IEnumerable<GameRecord>>()))
             .Returns(new byte[] { });
 

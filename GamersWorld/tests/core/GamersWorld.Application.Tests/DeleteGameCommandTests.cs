@@ -77,7 +77,7 @@ public class DeleteGameCommandTests
         {
             GameId = 999
         };
-        mockContext.Setup(m => m.Games.FindAsync(It.IsAny<int>())).ReturnsAsync((Game)null);
+        mockContext.Setup(m => m.Games.FindAsync(It.IsAny<int>())).ReturnsAsync((Game?)null);
         var handler = new DeleteGameCommandHandler(mockContext.Object);
         await Assert.ThrowsAsync<GameNotFoundException>(() => handler.Handle(command, CancellationToken.None));
     }

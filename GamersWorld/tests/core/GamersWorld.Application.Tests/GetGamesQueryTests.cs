@@ -5,6 +5,7 @@ using GamersWorld.Application.Common.Mappings;
 using GamersWorld.Application.Games.Queries.GetGames;
 using GamersWorld.Domain.Entities;
 using GamersWorld.Domain.Enums;
+using Microsoft.Extensions.Logging.Abstractions;
 using MockQueryable.Moq;
 using Moq;
 
@@ -20,7 +21,7 @@ public class GetGamesQueryTests
         var configProvider = new MapperConfiguration(cfg =>
         {
             cfg.AddProfile(new MappingProfile());
-        });
+        }, NullLoggerFactory.Instance);
         _mapper = configProvider.CreateMapper();
         _mockContext = new Mock<IApplicationDbContext>();
     }
@@ -49,7 +50,7 @@ public class GetGamesQueryTests
                 }
         };
 
-        var mockDbSet = games.AsQueryable().BuildMockDbSet();
+        var mockDbSet = games.BuildMockDbSet();
         _mockContext.Setup(c => c.Games).Returns(mockDbSet.Object);
 
         var query = new GetGamesQuery();
@@ -69,7 +70,7 @@ public class GetGamesQueryTests
         // Arrange
         var games = new List<Game>();
 
-        var mockDbSet = games.AsQueryable().BuildMockDbSet();
+        var mockDbSet = games.BuildMockDbSet();
         _mockContext.Setup(c => c.Games).Returns(mockDbSet.Object);
 
         var query = new GetGamesQuery();
