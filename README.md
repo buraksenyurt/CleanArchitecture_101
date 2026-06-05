@@ -7,12 +7,16 @@ Uygulamalı clean architecture eğitimi için hazırlanmış baz repodur.
   - [Çalışma Zamanı](#çalışma-zamanı)
   - [Genel Çözüm İskeleti](#genel-çözüm-i̇skeleti)
   - [Nasıl Çalışmalı?](#nasıl-çalışmalı)
+  - [Yardımcı Not: Paket Güncelleme](#yardımcı-not-paket-güncelleme)
 
 ## Ön Hazırlıklar
 
-Örnekte şu an için sqlite tabanlı fiziki bir veritabanı dosyası kullanılmakta. Migration işlemleri için web api uygulaması ayaktayken Data projesi altında aşağıdaki komutları çalıştırmak yeterli.
+Örnekte **PostgreSQL** tabanlı bir veritabanı kullanılabilir. **docker-compose** ile ilgili servisi ayağa kaldırıp kullanabiliriz. **Migration** işlemleri için web api uygulaması ayaktayken **Data** projesi altında aşağıdaki komutları çalıştırmak yeterli.
 
 ```bash
+# Eğer yoksa global olarak dotnet ef tool'unu yükleyelim
+dotnet tool install --global dotnet-ef
+
 # Migration planını hazırlamak için
 dotnet ef migrations add InitialCreate --startup-project ../../presentation/GamersWorld.WebApi
 
@@ -45,6 +49,7 @@ root
 │   │   └── Shared
 │   └── presentation
 │       └── WebApi
+│       └── RazorApp (Direct Injection)
 └── tests
     ├── core
     │   ├── Application.Tests
@@ -60,6 +65,24 @@ root
 
 Repodaki base branch'ten yeni bir branch çıkılıp geliştirmeler bunun üzerinde yapılabilir. base branch'te solution'ın genel iskeleti kuruludur ve ihtiyaç duyulacak pek çok sınıf dosyası içi boş olacak şekilde hazıdır. Eğitim sırasında bu içerik hazırlanarak ilerlenir. Yapılması gereken değişiklikler için main branch'te yer alan kodun son haline bakılabilir.
 
-Swagger dokümantasyonu için localhost:5175/swagger/index.html adresine gidilebilir.
+Swagger dokümantasyonu için `localhost:5175/swagger/index.html` adresine gidilebilir.
 
 ![Swagger Runtime](swagger_runtime.png)
+
+## Yardımcı Not: Paket Güncelleme
+
+Zamanla .NET sürümü güncelleniyor. Örneğin en son .NET 8.0 sürümünde bıraktığım projeyi .NET 10 tarafına güncelledim. Bununla birlikte kullanılan birçok nuget paketi de güncellemek durumunda. Bazı paketler oluşan güvenlik açıkları bunu zaruri hale getiriyor. Visual Studio ile çalışırken paketleri güncellemek oldukça kolay. Arabirim bu işi kolaylaştırıyor. Benim gibi zaman zaman ubuntu platformunda Visual Studio Code ve dotnet cli ile çalışıyorsanız, paket güncelleme işlemi biraz daha zahmetli olabilir. Bunun için yardımcı bir tool buldum ve işimi epeyce kolaylaştırdı. Buraya not olarak düşeyim.
+
+```bash
+# Tool'u global olarak yükleyelim
+dotnet tool install --global dotnet-outdated-tool
+
+# Solution için çalıştıralım
+dotnet outdated GamersWorld.sln
+
+# Tüm paketleri güncellemek için
+dotnet outdated GamersWorld.sln --upgrade
+
+# Paket güncellemelerini onaylayarak güncellemek için
+dotnet outdated GamersWorld.sln --upgrade:Prompt
+```

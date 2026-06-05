@@ -1,0 +1,34 @@
+services:
+
+  postgres:
+    image: postgres:latest
+    container_name: fnp-postgres
+    environment:
+      POSTGRES_USER: johndoe
+      POSTGRES_PASSWORD: somew0rds
+      POSTGRES_DB: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgres/data
+    networks:
+      - clean-network
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: fnp-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: scoth@tiger.com
+      PGADMIN_DEFAULT_PASSWORD: 123456
+    ports:
+      - "5050:80"
+    depends_on:
+      - postgres
+    networks:
+      - clean-network
+
+volumes:
+  postgres_data:
+networks:
+  clean-network:
+    driver: bridge
