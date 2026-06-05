@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static IServiceCollection AddData(this IServiceCollection services, IConfiguration configuration)
     {
         var connStr = configuration.GetConnectionString("DevConStr");
-        services.AddDbContext<GamersWorldDbContext>(options => options.UseSqlite(connStr));
+        services.AddDbContext<GamersWorldDbContext>(options => options.UseNpgsql(connStr));
 
         services.AddScoped<IApplicationDbContext>(provider => provider.GetService<GamersWorldDbContext>());
         services.AddScoped<IArchiveService, ArchiveDataService>();

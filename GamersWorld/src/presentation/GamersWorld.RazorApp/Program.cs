@@ -6,13 +6,6 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-var sharedDbPath = Path.GetFullPath(Path.Combine(
-    builder.Environment.ContentRootPath,
-    "..",
-    "GamersWorld.WebApi",
-    "GamersWorldDb.sqlite3"));
-builder.Configuration["ConnectionStrings:DevConStr"] = $"Data Source={sharedDbPath}";
-
 builder.Services.AddRazorPages();
 builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddData(builder.Configuration);
